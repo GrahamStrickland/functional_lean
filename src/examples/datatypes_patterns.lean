@@ -60,7 +60,7 @@ def times (n : Nat) (k : Nat) : Nat :=
   | Nat.zero => Nat.zero
   | Nat.succ k' => plus n (times n k')
 
-#eval times 2 3 
+#eval times 2 3
 
 def minus (n : Nat) (k : Nat) : Nat :=
   match k with
@@ -70,8 +70,7 @@ def minus (n : Nat) (k : Nat) : Nat :=
 #eval minus 5 3
 #eval minus 3 5
 
-def div (n : Nat) (k : Nat) : Nat :=
-  if n < k then
-    0
-  else Nat.succ (div (n - k) k)
-
+-- def div (n : Nat) (k : Nat) : Nat :=
+--   if n < k then
+--     0
+--   else Nat.succ (div (n - k) k)
