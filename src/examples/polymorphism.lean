@@ -84,3 +84,28 @@ def fives : String × Int := ("five", 5)
 
 -- def sevens : String × Int × Nat := ("VII", 7, 4 + 3)
 def sevens : String × (Int × Nat) := ("VII", (7, 4 + 3))
+
+-- inductive Sum (α : Type) (β : Type) : Type where
+--   | inl : α → Sum α β
+--   | inr : β → Sum α β
+def PetName : Type := String ⊕ String
+
+def animals : List PetName :=
+  [Sum.inl "Spot", Sum.inr "Tiger", Sum.inl "Fifi", Sum.inl "Rex", Sum.inr "Floof"]
+
+def howManyDogs (pets : List PetName) : Nat :=
+  match pets with
+  | [] => 0
+  | Sum.inl _ :: morePets => howManyDogs morePets + 1
+  | Sum.inr _ :: morePets => howManyDogs morePets
+
+#eval howManyDogs animals
+
+-- inductive Unit : Type where
+--   | unit : Unit
+
+inductive ArithExpr (ann : Type) : Type where
+  | int : ann → Int → ArithExpr ann
+  | plus : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
+  | minus : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
+  | times : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
