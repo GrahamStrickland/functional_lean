@@ -109,3 +109,8 @@ inductive ArithExpr (ann : Type) : Type where
   | plus : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
   | minus : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
   | times : ann → ArithExpr ann → ArithExpr ann → ArithExpr ann
+
+inductive MyType (α : Type) : Type where
+  | ctor : α → MyType α
+
+-- def ofFive : MyType := ctor 5
