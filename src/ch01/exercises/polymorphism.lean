@@ -37,3 +37,12 @@ def howManyDogs (pets : List PetName) : Nat :=
   | PetName.cat _ :: morePets => howManyDogs morePets
 
 #eval howManyDogs animals
+
+def zip {α β : Type} : List α → List β → List (α × β)
+  | [], _ => []
+  | _, [] => []
+  | x :: xs, y :: ys => (x, y) :: zip xs ys
+
+#eval zip [1, 2, 3] [1.0, 2.0, 3.0, 4.0]
+#eval zip ["cat", "dog", "fish"] [] (β := Int)
+#eval zip ["cat", "dog", "fish", "mouse"] [1, 2, 3]
