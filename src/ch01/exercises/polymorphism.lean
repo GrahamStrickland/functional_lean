@@ -38,7 +38,8 @@ def howManyDogs (pets : List PetName) : Nat :=
 
 #eval howManyDogs animals
 
-def zip {α β : Type} : List α → List β → List (α × β)
+def zip {α β : Type} (xs : List α) (ys : List β) : List (α × β) :=
+  match xs, ys with
   | [], _ => []
   | _, [] => []
   | x :: xs, y :: ys => (x, y) :: zip xs ys
