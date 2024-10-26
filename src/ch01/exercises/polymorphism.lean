@@ -47,3 +47,14 @@ def zip {α β : Type} (xs : List α) (ys : List β) : List (α × β) :=
 #eval zip [1, 2, 3] [1.0, 2.0, 3.0, 4.0]
 #eval zip ["cat", "dog", "fish"] [] (β := Int)
 #eval zip ["cat", "dog", "fish", "mouse"] [1, 2, 3]
+
+def take {α : Type} (n : Int) (xs : List α) : List α :=
+  if n <= 0 then
+    []
+  else
+    match xs with
+    | [] => []
+    | x :: xs => x :: take (n - 1) xs
+
+#eval take 3 ["bolete", "oyster"]
+#eval take 1 ["bolete", "oyster"]
