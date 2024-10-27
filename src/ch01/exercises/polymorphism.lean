@@ -58,3 +58,13 @@ def take {α : Type} (n : Int) (xs : List α) : List α :=
 
 #eval take 3 ["bolete", "oyster"]
 #eval take 1 ["bolete", "oyster"]
+
+def distribute {α β γ : Type} : α × (β ⊕ γ) → (α × β) ⊕ (α × γ) :=
+  fun
+  | (a, Sum.inl b) => Sum.inl (a, b)
+  | (a, Sum.inr c) => Sum.inr (a, c)
+
+#eval distribute (1, Sum.inl "apple") (γ := Float)
+#eval distribute (2, Sum.inr 3.14) (β := Int)
+#eval distribute ("hello", Sum.inl "world") (γ := Int)
+#eval distribute ("test", Sum.inr true) (β := Float)
