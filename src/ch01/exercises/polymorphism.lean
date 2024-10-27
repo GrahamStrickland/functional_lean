@@ -68,3 +68,12 @@ def distribute {α β γ : Type} : α × (β ⊕ γ) → (α × β) ⊕ (α × �
 #eval distribute (2, Sum.inr 3.14) (β := Int)
 #eval distribute ("hello", Sum.inl "world") (γ := Int)
 #eval distribute ("test", Sum.inr true) (β := Float)
+
+def mult2 {α : Type} [Add α] : Bool × α → α ⊕ α :=
+  fun
+  | (true, x) => Sum.inl (x + x)
+  | (false, x) => Sum.inr (x + x)
+
+#eval mult2 (true, 1)
+#eval mult2 (false, 2)
+#eval mult2 (true, 3.14159)
