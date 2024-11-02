@@ -7,4 +7,3 @@ def main : IO Unit := do
   let name := input.dropRightWhile Char.isWhitespace
 
   stdout.putStrLn s!"Hello, {name}"
-
