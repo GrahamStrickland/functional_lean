@@ -1,0 +1,7 @@
+name = "additional_conveniences"
+version = "0.1.0"
+defaultTargets = ["additional_conveniences"]
+
+[[lean_exe]]
+name = "additional_conveniences"
+root = "Main"
