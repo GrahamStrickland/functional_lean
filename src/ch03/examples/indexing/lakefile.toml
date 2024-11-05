@@ -1,0 +1,7 @@
+name = "indexing"
+version = "0.1.0"
+defaultTargets = ["indexing"]
+
+[[lean_exe]]
+name = "indexing"
+root = "Main"
