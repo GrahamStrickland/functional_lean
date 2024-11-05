@@ -1,0 +1,7 @@
+name = "propositions"
+version = "0.1.0"
+defaultTargets = ["propositions"]
+
+[[lean_exe]]
+name = "propositions"
+root = "Main"
