@@ -45,7 +45,7 @@ def printHelp : IO Unit := do
 def main (args : List String) : IO UInt32 :=
   match args with
   | [] => process 0 ["-"]
-  | x :: xs => if x == "--help" then
+  | x :: xs => if x == "--help" then do
     printHelp 
     process 0 xs
   else 
