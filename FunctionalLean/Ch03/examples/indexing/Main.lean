@@ -8,7 +8,7 @@ def snail := woodlandCritters[2]
 
 #eval hedgehog
 #eval deer
-#eval snail 
+#eval snail
 -- #eval oops
 
 def main : IO Unit :=

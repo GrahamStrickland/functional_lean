@@ -14,7 +14,7 @@
 
 -- theorem fiveLessThanEighteen : FiveLessThanEighteen := rfl
 
-theorem twoPlusThreeIsFive : 2 + 3 = 5 := by simp 
+theorem twoPlusThreeIsFive : 2 + 3 = 5 := by simp
 
 theorem fifteenMinusEightIsSeven : 15 - 8 = 7 := by simp
 
