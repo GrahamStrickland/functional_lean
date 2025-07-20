@@ -116,3 +116,31 @@ instance : OfNat Pos (n + 1) where
 
 def eight : Pos := 8
 -- def zero : Pos := 0
+
+namespace MyPos
+
+structure Pos where
+  succ ::
+  pred : Nat
+
+def Pos.add : Pos → Pos → Pos
+  | succ n, k => Pos.succ (n.add k.pred.succ)
+
+instance : Add Pos where
+  add := Pos.add
+
+def Pos.mul : Pos → Pos → Pos
+  | succ n, k => Pos.succ ((n.succ.mul k.pred.succ) - 1)
+
+instance : Mul Pos where
+  mul := Pos.mul
+
+instance : ToString Pos where
+  toString x := toString (x.pred + 1)
+
+instance : OfNat Pos (n + 1) where
+  ofNat :=
+    let rec natPlusOne : Nat → Pos
+      | 0 => Pos.succ 0
+      | k => Pos.succ k
+    natPlusOne n
