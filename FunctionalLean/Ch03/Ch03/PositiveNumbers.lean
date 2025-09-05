@@ -144,3 +144,11 @@ instance : OfNat Pos (n + 1) where
       | 0 => Pos.succ 0
       | k => Pos.succ k
     natPlusOne n
+
+def one : Pos := 1
+def six : Pos := 6
+
+#eval one + six
+#eval six * six * six
+
+#eval s!"{six} * {six} = {six * six}"
