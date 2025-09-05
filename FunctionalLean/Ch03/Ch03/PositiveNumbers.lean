@@ -152,3 +152,48 @@ def six : Pos := 6
 #eval six * six * six
 
 #eval s!"{six} * {six} = {six * six}"
+
+end MyPos
+
+inductive Even : Type where
+  | zero : Even
+  | succ : Even → Even
+
+def Even.add : Even → Even → Even
+  | Even.zero, k => k
+  | Even.succ n, k => Even.succ (n.add k)
+
+instance : Add Even where
+  add := Even.add
+
+def Even.mul : Even → Even → Even
+  | Even.zero, _ => Even.zero
+  | succ n, k => n.mul k
+
+instance : Mul Even where
+  mul := Even.mul
+
+def Even.toNat : Even → Nat
+  | Even.zero => 0
+  | Even.succ n => n.toNat + 2
+
+instance : ToString Even where
+  toString x := toString (x.toNat)
+
+def isEven : Nat → Bool
+  | n => n % 2 == 0
+
+instance : OfNat Even 0 where
+  ofNat := Even.zero
+
+instance [OfNat Even n] : OfNat Even (n + 2) where
+  ofNat := Even.succ (inferInstance : OfNat Even n).ofNat
+
+def two: Even := 2
+def four: Even := Even.succ two
+def sixteen: Even := 16
+
+#eval two + two
+#eval two * sixteen
+
+#eval s!"{two} * {four} = {two * four}"
