@@ -168,7 +168,7 @@ instance : Add Even where
 
 def Even.mul : Even → Even → Even
   | Even.zero, _ => Even.zero
-  | succ n, k => n.mul k
+  | Even.succ n, k => (n.mul k) + k + k
 
 instance : Mul Even where
   mul := Even.mul
@@ -189,11 +189,15 @@ instance : OfNat Even 0 where
 instance [OfNat Even n] : OfNat Even (n + 2) where
   ofNat := Even.succ (inferInstance : OfNat Even n).ofNat
 
+def zero: Even := 0
 def two: Even := 2
 def four: Even := Even.succ two
 def sixteen: Even := 16
 
 #eval two + two
+#eval four + zero
 #eval two * sixteen
+#eval sixteen * sixteen
+#eval four * zero
 
 #eval s!"{two} * {four} = {two * four}"
