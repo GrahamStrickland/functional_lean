@@ -201,3 +201,57 @@ def sixteen: Even := 16
 #eval four * zero
 
 #eval s!"{two} * {four} = {two * four}"
+
+inductive HTTPMethod : Type where
+  | GET
+  | HEAD
+  | OPTIONS
+  | TRACE
+  | PUT
+  | DELETE
+  | POST
+  | PATCH
+  | CONNECT
+
+structure HTTPRequest where
+  method : HTTPMethod
+  uri : String
+  version: String
+  body: String
+
+structure HTTPResponse where
+  code: Pos
+  body: String
+
+instance : ToString HTTPResponse where
+  toString h := s!"Code: {h.code}, Body: {h.body}"
+
+def httpResponseRequest (request : HTTPRequest) : HTTPResponse :=
+  match request.method with
+  | HTTPMethod.GET => { code := 200, body := "Here's your response" }
+  | HTTPMethod.HEAD => { code := 200, body := "" }
+  | HTTPMethod.OPTIONS => { code := 204, body := "" }
+  | HTTPMethod.TRACE => { code := 200, body := s!"URI: {request.uri}, version: {request.version}" }
+  | HTTPMethod.PUT => { code := 201, body := "" }
+  | HTTPMethod.DELETE => { code := 200, body := "<html lang=\"en-US\">
+  <body>
+    <h1>File \"file.html\" deleted.</h1>
+  </body>
+</html>" }
+  | HTTPMethod.POST => { code := 200, body := "" }
+  | HTTPMethod.PATCH => { code := 200, body :=  "" }
+  | HTTPMethod.CONNECT => { code := 200, body := "" }
+
+def testHTTP : IO Unit := do {
+  let stdout ← IO.getStdout
+
+  stdout.putStrLn (httpResponseRequest 
+    { 
+      method := HTTPMethod.GET, 
+      uri := "https://lean-lang.org/functional_programming_in_lean/hello", 
+      version := "1.1", 
+      body := "Hello!" 
+    }).body 
+}
+
+#eval testHTTP
