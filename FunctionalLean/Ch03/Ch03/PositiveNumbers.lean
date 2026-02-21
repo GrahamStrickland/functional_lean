@@ -245,13 +245,13 @@ def httpResponseRequest (request : HTTPRequest) : HTTPResponse :=
 def testHTTP : IO Unit := do {
   let stdout ← IO.getStdout
 
-  stdout.putStrLn (httpResponseRequest 
-    { 
-      method := HTTPMethod.GET, 
-      uri := "https://lean-lang.org/functional_programming_in_lean/hello", 
-      version := "1.1", 
-      body := "Hello!" 
-    }).body 
+  stdout.putStrLn (httpResponseRequest
+    {
+      method := HTTPMethod.GET,
+      uri := "https://lean-lang.org/functional_programming_in_lean/hello",
+      version := "1.1",
+      body := "Hello!"
+    }).body
 }
 
 #eval testHTTP
