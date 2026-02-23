@@ -57,8 +57,5 @@ instance : OfNat Even 0 where
 instance [OfNat Even n] : OfNat Even (n + 2) where
   ofNat := Even.succ (inferInstance : OfNat Even n).ofNat
 
-partial def evenLim : Even → Even
-  | Even.succ n => evenLim (n + 2)
-  | n => n
-
-#eval evenLim 2
+#eval (254 : Even)
+-- #eval (256 : Even)
