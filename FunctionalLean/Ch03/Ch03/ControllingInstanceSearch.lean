@@ -83,3 +83,15 @@ instance [Add α] : HPlus α α α where
 #check HPlus.hPlus (5 : Nat) (3 : Nat)
 
 #check HPlus.hPlus (5 : Nat)
+
+structure PPoint (α : Type) where
+  x : α
+  y : α
+
+def mulPPointScalar [Mul α] (point : PPoint α) (scalar : α) : (PPoint α) := 
+  { x := scalar * point.x, y := scalar * point.y }
+
+instance [Mul α] : HMul (PPoint α) α (PPoint α) where
+  hMul := mulPPointScalar
+
+#eval {x := 2.5, y := 3.7 : PPoint Float} * 2.0
