@@ -121,3 +121,13 @@ def concat [Append α] (xs : NonEmptyList α) : α :=
 --     map (fun _ => x) coll
 
 -- deriving instance ToString for NonEmptyList
+
+instance : HAppend (List α) (NonEmptyList α) (NonEmptyList α) where
+  hAppend xs ys :=
+    match xs with
+    | [] => ys
+    | x :: xs => { head := x, tail := xs ++ ys.head :: ys.tail }
+
+#eval ["Trapdoor Spider"] ++ idahoSpiders
+#eval ([] : List String) ++ idahoSpiders
+
