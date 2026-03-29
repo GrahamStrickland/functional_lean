@@ -131,3 +131,9 @@ instance : HAppend (List α) (NonEmptyList α) (NonEmptyList α) where
 #eval ["Trapdoor Spider"] ++ idahoSpiders
 #eval ([] : List String) ++ idahoSpiders
 
+def BinTree.mapTree (f : α → β) : BinTree α → BinTree β
+    | .leaf => .leaf
+    | .branch left x right => .branch (mapTree f left) (f x) (mapTree f right)
+
+instance : Functor BinTree where
+    map := BinTree.mapTree
