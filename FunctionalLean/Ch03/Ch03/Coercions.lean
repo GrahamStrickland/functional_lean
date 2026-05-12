@@ -1,3 +1,5 @@
+import Lean
+
 import Ch03.ArraysAndIndexing
 
 def fileDumper : IO Unit := do
@@ -158,3 +160,48 @@ def buildResponse (title : String) (R : Serializer)
   ]
 
 #eval buildResponse "Functional Programming in Lean" Str "Programming is fun!"
+
+#eval (5 : Float).toString
+#eval (5.2 : Float).toString
+
+def dropDecimals (numString : String) : String :=
+  if numString.contains '.' then
+    let noTrailingZeros := numString.dropRightWhile (· == '0')
+    noTrailingZeros.dropRightWhile (· == '.')
+  else numString
+
+#eval dropDecimals (5 : Float).toString
+#eval dropDecimals (5.2 : Float).toString
+
+def String.separate (sep : String) (strings : List String) : String :=
+  match strings with
+  | [] => ""
+  | x :: xs => String.join (x :: xs.map (sep ++ ·))
+
+#eval ", ".separate ["1", "2"]
+#eval ", ".separate ["1"]
+#eval ", ".separate []
+
+partial def JSON.asString (val : JSON) : String :=
+  match val with
+  | true => "true"
+  | false => "false"
+  | null => "null"
+  | string s => "\"" ++ Lean.Json.escape s ++ "\""
+  | number n => dropDecimals n.toString
+  | object members =>
+    let memberToString mem :=
+      "\"" ++ Lean.Json.escape mem.fst ++ "\": " ++ asString mem.snd
+    "{" ++ ", ".separate (members.map memberToString) ++ "}"
+  | array elements =>
+    "[" ++ ", ".separate (elements.map asString) ++ "]"
+
+#eval (buildResponse "Functional Programming in Lean" Str "Programming is fun!").asString
+
+def lastSpider : Option String :=
+  List.getLast? idahoSpiders
+
+-- def lastSpider :=
+--   List.getLast? idahoSpiders
+
+#eval lastSpider
