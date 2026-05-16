@@ -1,0 +1,14 @@
+name = "Ch04"
+version = "0.1.0"
+defaultTargets = ["ch04"]
+
+[[lean_lib]]
+name = "Ch04"
+
+[[lean_exe]]
+name = "ch04"
+root = "Main"
+
+[[require]]
+name = "Ch03"
+path = "../Ch03"
